@@ -66,5 +66,16 @@ with st.expander("Measure of variations"):
     style_metric_cards(background_color="#FFFFFF", border_left_color="#9900AD", border_color="#1f66bd",
                        box_shadow="#F71938")
 
-
-
+with st.expander("PREDICTION TABLE"):
+    result_df = pd.DataFrame(
+        {
+            'Name': df['Name'],
+            'No of Dependant': df['Dependant'],
+            'No of Wives': df['Wives'],
+            'Done Projects | Actual Y': Y,
+            'Y_predicted': predictions
+        }
+    )
+    result_df['SSE'] = sse
+    result_df['SSR'] = ssr
+    st.dataframe(result_df, use_container_width=True)
