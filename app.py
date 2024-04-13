@@ -79,3 +79,20 @@ with st.expander("PREDICTION TABLE"):
     result_df['SSE'] = sse
     result_df['SSR'] = ssr
     st.dataframe(result_df, use_container_width=True)
+
+# download predicted csv
+df_download = result_df.to_csv(index=False).encode('utf-8')
+st.download_button(
+    label="download predicted dataset",
+    data=df_download,
+    key="download_dataframe.csv",
+    file_name="my_dataframe.csv"
+)
+
+with st.expander("residual & line of best fit"):
+    # Calculate residuals
+    residuals = Y - predictions
+    # Create a new DataFrame to store residuals
+    residuals_df = pd.DataFrame({'Actual': Y, 'Predicted': predictions, 'Residuals': residuals})
+    # Print the residuals DataFrame
+    st.dataframe(residuals_df, use_container_width=True)
