@@ -48,7 +48,7 @@ adjusted_r2 = 1 - (1 - r2) * (n - 1) / (n - p - 1)
 sse = np.sum((Y - predictions) ** 2)
 ssr = np.sum((y_pred - np.mean(Y)) ** 2)
 
-# regression line
+# conclusions
 with st.expander("Regression coefficient"):
     col1, col2, col3 = st.columns(3)
     col1.metric('intercept:', value=f'{intercept:.4f}', delta="(Bo)")
@@ -56,3 +56,15 @@ with st.expander("Regression coefficient"):
     col3.metric('B2 coefficient', value=f'{coefficients[1]:.4f}', delta=" for X2 number of Wives (B2):")
     style_metric_cards(background_color="#FFFFFF", border_left_color="#9900AD", border_color="#1f66bd",
                        box_shadow="#F71938")
+
+with st.expander("Measure of variations"):
+    col1, col2, col3 = st.columns(3)
+
+    col1.metric('R-squared:', value=f'{r2:.4f}', delta="Coefficient of Determination")
+    col2.metric('Adjusted R-squared:', value=f'{adjusted_r2:.4f}', delta="Adj[R2]")
+    col3.metric('SSE:', value=f'{sse:.4f}', delta="Squared(Y-Y_pred)")
+    style_metric_cards(background_color="#FFFFFF", border_left_color="#9900AD", border_color="#1f66bd",
+                       box_shadow="#F71938")
+
+
+
