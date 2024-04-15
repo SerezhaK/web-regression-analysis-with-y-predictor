@@ -70,8 +70,8 @@ with st.expander("PREDICTION TABLE"):
     result_df = pd.DataFrame(
         {
             'Name': df['Name'],
-            'No of Dependant': df['Dependant'],
-            'No of Wives': df['Wives'],
+            'No of average_test_score': df['average_test_score'],
+            'No of Hours_of_lessons_per_week': df['Hours_of_lessons_per_week'],
             'Done Projects | Actual Y': Y,
             'Y_predicted': predictions
         }
