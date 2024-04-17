@@ -53,8 +53,9 @@ ssr = np.sum((y_pred - np.mean(Y)) ** 2)
 with st.expander("Regression coefficient"):
     col1, col2, col3 = st.columns(3)
     col1.metric('intercept:', value=f'{intercept:.4f}', delta="(Bo)")
-    col2.metric('B1 coefficient:', value=f'{coefficients[0]:.4f}', delta=" for X1 number of Dependant (B1)")
-    col3.metric('B2 coefficient', value=f'{coefficients[1]:.4f}', delta=" for X2 number of Wives (B2):")
+    col2.metric('B1 coefficient:', value=f'{coefficients[0]:.4f}', delta=" for X1 number of average_test_score (B1)")
+    col3.metric('B2 coefficient', value=f'{coefficients[1]:.4f}',
+                delta=" for X2 number of Hours_of_lessons_per_week (B2):")
     style_metric_cards(background_color="#FFFFFF", border_left_color="#9900AD", border_color="#1f66bd",
                        box_shadow="#F71938")
 
@@ -115,6 +116,16 @@ with col2:
 # User input for X1 and X2
 with st.sidebar:
     with st.form("input_form", clear_on_submit=True):
-        x1 = st.number_input("Enter Dependant", )
-        x2 = st.number_input("Number of Wives", )
+        x1 = st.number_input("Enter average_test_score", )
+        x2 = st.number_input("Hours_of_lessons_per_week", )
         submit_button = st.form_submit_button(label="Predict")
+
+if submit_button:
+    # Make predictions
+    new_data = np.array([[x1, x2]])
+    new_prediction = model.predict(new_data)
+    # Display prediction
+    with st.expander("OPEN"):
+        st.write(
+            f"<span style='font-size: 34px;color:green;'>Predicted Output: </span> <span style='font-size: 34px;'> {new_prediction}</span>",
+            unsafe_allow_html=True)
