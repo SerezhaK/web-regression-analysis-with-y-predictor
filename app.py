@@ -80,14 +80,14 @@ with st.expander("PREDICTION TABLE"):
     result_df['SSR'] = ssr
     st.dataframe(result_df, use_container_width=True)
 
-# download predicted csv
-df_download = result_df.to_csv(index=False).encode('utf-8')
-st.download_button(
-    label="download predicted dataset",
-    data=df_download,
-    key="download_dataframe.csv",
-    file_name="my_dataframe.csv"
-)
+    # download predicted csv
+    df_download = result_df.to_csv(index=False).encode('utf-8')
+    st.download_button(
+        label="download predicted dataset",
+        data=df_download,
+        key="download_dataframe.csv",
+        file_name="my_dataframe.csv"
+    )
 
 with st.expander("residual & line of best fit"):
     # Calculate residuals
@@ -96,3 +96,13 @@ with st.expander("residual & line of best fit"):
     residuals_df = pd.DataFrame({'Actual': Y, 'Predicted': predictions, 'Residuals': residuals})
     # Print the residuals DataFrame
     st.dataframe(residuals_df, use_container_width=True)
+
+    col1, col2 = st.columns(2)
+    with col1:
+        plt.scatter(Y, predictions)
+        plt.plot([min(Y), max(Y)], [min(Y), max(Y)], '--k', color='red', label='Best Fit Line')  # Best fit line
+        plt.xlabel('Actual Y | number of Projects')
+        plt.ylabel('Predicted Y')
+        plt.grid(True)
+        plt.legend()
+        st.pyplot()
