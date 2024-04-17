@@ -108,7 +108,13 @@ with st.expander("residual & line of best fit"):
         plt.legend()
         st.pyplot()
 with col2:
-    sns.displot(residuals,kind='kde',color='blue', fill=True, legend=True)
+    sns.displot(residuals, kind='kde', color='blue', fill=True, legend=True)
     sns.set_style("whitegrid")  # Set the style to whitegrid
     st.pyplot()
 
+# User input for X1 and X2
+with st.sidebar:
+    with st.form("input_form", clear_on_submit=True):
+        x1 = st.number_input("Enter Dependant", )
+        x2 = st.number_input("Number of Wives", )
+        submit_button = st.form_submit_button(label="Predict")
