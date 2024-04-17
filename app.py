@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import seaborn as sns
 import streamlit as st
 from sklearn import metrics
 from sklearn.linear_model import LinearRegression
@@ -106,3 +107,8 @@ with st.expander("residual & line of best fit"):
         plt.grid(True)
         plt.legend()
         st.pyplot()
+with col2:
+    sns.displot(residuals,kind='kde',color='blue', fill=True, legend=True)
+    sns.set_style("whitegrid")  # Set the style to whitegrid
+    st.pyplot()
+
