@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import streamlit as st
+import matplotlib.pyplot as plt
 from sklearn import metrics
 from sklearn.linear_model import LinearRegression
 from streamlit_extras.metric_cards import style_metric_cards
@@ -102,7 +103,7 @@ with st.expander("residual & line of best fit"):
     col1, col2 = st.columns(2)
     with col1:
         plt.scatter(Y, predictions)
-        plt.plot([min(Y), max(Y)], [min(Y), max(Y)], '--k', color='red', label='Best Fit Line')  # Best fit line
+        plt.plot([min(Y), max(Y)], [min(Y), max(Y)], color='red', label='Best Fit Line')  # Best fit line
         plt.xlabel('Actual Y | number of Projects')
         plt.ylabel('Predicted Y')
         plt.grid(True)
@@ -124,6 +125,7 @@ if submit_button:
     # Make predictions
     new_data = np.array([[x1, x2]])
     new_prediction = model.predict(new_data)
+
     # Display prediction
     with st.expander("OPEN"):
         st.write(
