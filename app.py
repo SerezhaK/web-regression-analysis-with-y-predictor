@@ -1,8 +1,8 @@
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
 import streamlit as st
-import matplotlib.pyplot as plt
 from sklearn import metrics
 from sklearn.linear_model import LinearRegression
 from streamlit_extras.metric_cards import style_metric_cards
@@ -53,21 +53,52 @@ ssr = np.sum((y_pred - np.mean(Y)) ** 2)
 # conclusions
 with st.expander("Regression coefficient"):
     col1, col2, col3 = st.columns(3)
-    col1.metric('intercept:', value=f'{intercept:.4f}', delta="(Bo)")
-    col2.metric('B1 coefficient:', value=f'{coefficients[0]:.4f}', delta=" for X1 number of average_test_score (B1)")
-    col3.metric('B2 coefficient', value=f'{coefficients[1]:.4f}',
-                delta=" for X2 number of Hours_of_lessons_per_week (B2):")
-    style_metric_cards(background_color="#FFFFFF", border_left_color="#9900AD", border_color="#1f66bd",
-                       box_shadow="#F71938")
+    col1.metric(
+        'intercept:',
+        value=f'{intercept:.4f}',
+        delta="(Bo)"
+    )
+    col2.metric(
+        'B1 coefficient:',
+        value=f'{coefficients[0]:.4f}',
+        delta=" for X1 number of average_test_score (B1)"
+    )
+    col3.metric(
+        'B2 coefficient',
+        value=f'{coefficients[1]:.4f}',
+        delta=" for X2 number of Hours_of_lessons_per_week (B2):"
+    )
+    style_metric_cards(
+        background_color="#FFFFFF",
+        border_left_color="#9900AD",
+        border_color="#1f66bd",
+        box_shadow="#F71938"
+    )
 
 with st.expander("Measure of variations"):
     col1, col2, col3 = st.columns(3)
 
-    col1.metric('R-squared:', value=f'{r2:.4f}', delta="Coefficient of Determination")
-    col2.metric('Adjusted R-squared:', value=f'{adjusted_r2:.4f}', delta="Adj[R2]")
-    col3.metric('SSE:', value=f'{sse:.4f}', delta="Squared(Y-Y_pred)")
-    style_metric_cards(background_color="#FFFFFF", border_left_color="#9900AD", border_color="#1f66bd",
-                       box_shadow="#F71938")
+    col1.metric(
+        'R-squared:',
+        value=f'{r2:.4f}',
+        delta="Coefficient of Determination"
+    )
+    col2.metric(
+        'Adjusted R-squared:',
+        value=f'{adjusted_r2:.4f}',
+        delta="Adj[R2]"
+    )
+    col3.metric(
+        'SSE:',
+        value=f'{sse:.4f}',
+        delta="Squared(Y-Y_pred)"
+    )
+    style_metric_cards(
+        background_color="#FFFFFF",
+        border_left_color="#9900AD",
+        border_color="#1f66bd",
+        box_shadow="#F71938"
+    )
 
 with st.expander("PREDICTION TABLE"):
     result_df = pd.DataFrame(
@@ -96,14 +127,21 @@ with st.expander("residual & line of best fit"):
     # Calculate residuals
     residuals = Y - predictions
     # Create a new DataFrame to store residuals
-    residuals_df = pd.DataFrame({'Actual': Y, 'Predicted': predictions, 'Residuals': residuals})
+    residuals_df = pd.DataFrame(
+        {'Actual': Y, 'Predicted': predictions, 'Residuals': residuals}
+    )
     # Print the residuals DataFrame
     st.dataframe(residuals_df, use_container_width=True)
 
     col1, col2 = st.columns(2)
     with col1:
         plt.scatter(Y, predictions)
-        plt.plot([min(Y), max(Y)], [min(Y), max(Y)], color='red', label='Best Fit Line')  # Best fit line
+        plt.plot(
+            [min(Y), max(Y)],
+            [min(Y), max(Y)],
+            color='red',
+            label='Best Fit Line'
+        )  # Best fit line
         plt.xlabel('Actual Y | number of Projects')
         plt.ylabel('Predicted Y')
         plt.grid(True)
@@ -129,5 +167,7 @@ if submit_button:
     # Display prediction
     with st.expander("OPEN"):
         st.write(
-            f"<span style='font-size: 34px;color:green;'>Predicted Output: </span> <span style='font-size: 34px;'> {new_prediction}</span>",
+            f"<span style='font-size: 34px;color:green;'>Predicted Output:"
+            f" </span> <span style='font-size:"
+            f" 34px;'> {new_prediction}</span>",
             unsafe_allow_html=True)
